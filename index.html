@@ -165,6 +165,22 @@ footer{padding-block:44px 56px}
   .wheel-grid{grid-template-columns:minmax(0,1fr);gap:24px}
   #wheel .lbl{display:none}
 }
+/* faq add-strategy + ask */
+.ans{padding:0 0 24px;max-width:44em}
+.ans p{padding:0 0 12px;color:var(--muted)}
+.ans ol{margin:0 0 20px;padding-left:1.3em;color:var(--muted)}
+.ans li{margin-bottom:10px}
+.ans li b{color:var(--fg)}
+.ans code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--accent)}
+.promptbox{border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:hidden}
+.pbhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 18px;border-bottom:1px solid var(--line);font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pbhead .btn{min-height:40px;padding:0 18px;font-size:.9rem}
+#promptText{margin:0;padding:16px 18px;max-height:340px;overflow:auto;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.8rem;line-height:1.55;color:var(--fg);tab-size:4}
+.askbox{background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:36px 32px;max-width:48em}
+.askbox h2{margin-top:10px}
+.askbox textarea{display:block;width:100%;margin-top:22px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font:500 1rem var(--body);resize:vertical;min-height:110px}
+.askbox textarea:focus{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* mobile polish */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .btn,.fb,summary,#wheel .seg{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -188,6 +204,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   summary{font-size:1rem}
   .fb{min-height:48px}
   .videobox{max-width:300px}
+  .askbox{padding:26px 18px;border-radius:20px}
+  .pbhead{font-size:.75rem}
 }
 @media (max-width:360px){
   .brand span{font-size:1.05rem}
@@ -202,9 +220,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="44" height="44"><span>ALGO<b>X</b></span></a>
   <nav class="nav" aria-label="Main">
     <a class="l" href="#custom">Custom Strategy</a>
+    <a class="l" href="#demo">Try it</a>
     <a class="l" href="#features">Features</a>
     <a class="l" href="#how">How to get it</a>
     <a class="l" href="#faq">FAQ</a>
+    <a class="l" href="#ask">Ask a question</a>
     <a class="btn btn-primary" href="https://t.me/ALGOX_BOT_ADMIN?text=Hi%2C%20I%20want%20more%20details%20about%20the%20AlgoX%20bot." target="_blank" rel="noopener">Get free demo</a>
   </nav>
 </header>
@@ -245,6 +265,321 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     </div>
     <p class="note">A binary bot that runs your own custom strategy, and it&rsquo;s free.</p>
   </div>
+</section>
+
+<section class="sec" id="demo">
+<style>
+#demo .dgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;margin-top:40px;align-items:start}
+#demo .dtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+#demo .dtab{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 18px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted);font-weight:800;font-size:.92rem;min-height:44px;display:inline-flex;align-items:center;transition:all .15s ease}
+#demo .dtab:hover{border-color:var(--accent-dim);color:var(--fg)}
+#demo .dtab[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+#demo .dtab:focus-visible,#demo .dbtn:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+#demo .stage{background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:26px;min-height:430px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(25,227,160,.07)}
+#demo .stage h3{font-size:1.15rem;margin-bottom:6px}
+#demo .stage .cap{color:var(--muted);font-size:.95rem;margin:0 0 18px}
+#demo .dpane{display:none}
+#demo .dpane.on{display:block;animation:dfade .35s ease}
+@keyframes dfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#demo .dctl{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+#demo .dbtn{all:unset;box-sizing:border-box;cursor:pointer;min-height:44px;padding:0 20px;border-radius:999px;border:2px solid var(--accent);color:var(--accent);font-weight:800;font-size:.92rem;display:inline-flex;align-items:center;transition:transform .12s ease,background .12s ease}
+#demo .dbtn:hover{background:rgba(25,227,160,.1)}
+#demo .dbtn:active{transform:scale(.97)}
+#demo .dbtn.red{border-color:#ff5a5a;color:#ff7b7b}
+#demo .dbtn.red:hover{background:rgba(255,90,90,.1)}
+#demo .dbtn.solid{background:var(--accent);color:var(--on-accent)}
+#demo .dbtn.ghost{border-color:var(--line);color:var(--muted)}
+#demo .dcard{background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px;transition:border-color .3s ease,opacity .3s ease}
+#demo .dcard.on{border-color:var(--accent)}
+#demo .dcard small{display:block;font-weight:800;letter-spacing:.06em;color:var(--accent);font-size:.72rem;text-transform:uppercase;margin-bottom:6px}
+#demo .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.95rem;color:var(--fg);min-height:3em;line-height:1.5}
+#demo .caret{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:-2px;animation:dblink 1s steps(1) infinite}
+@keyframes dblink{50%{opacity:0}}
+#demo .row2{display:flex;align-items:center;gap:14px}
+#demo .tag{margin-left:auto;font-size:.72rem;font-weight:800;padding:5px 12px;border-radius:999px;background:var(--line);color:var(--muted);letter-spacing:.04em}
+#demo .tag.ok{background:var(--accent);color:var(--on-accent)}
+#demo .tag.bad{background:#ff5a5a;color:#fff}
+#demo .tag.warn{background:#ffbe3c;color:#2a1c00}
+#demo .chip{display:flex;align-items:center;gap:14px;background:var(--bg);border:2px solid var(--accent);border-radius:16px;padding:16px 18px;margin-bottom:12px;font-family:var(--display);font-size:1.15rem;transition:all .3s ease}
+#demo .chip.loss{border-color:#ff5a5a}
+#demo .chip.locked{border-color:#4a5565;color:#6c7889;background:#0b0f15}
+#demo .chip svg{width:30px;height:30px;flex:none;opacity:0;transition:opacity .3s ease}
+#demo .chip.locked svg{opacity:1}
+#demo .msg{min-height:3em;margin-top:6px;font-weight:700;color:var(--fg)}
+#demo .msg b{color:var(--accent)}
+#demo .chartbox{background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:8px;position:relative}
+#demo .chartbox svg{width:100%;height:auto;display:block}
+#demo .banner{position:static;width:max-content;max-width:100%;margin:10px auto 6px;transform:scale(.8);opacity:0;padding:10px 20px;border-radius:999px;font-weight:800;font-size:.9rem;text-align:center;transition:all .3s ease}
+#demo .banner.show{opacity:1;transform:scale(1)}
+#demo .banner.ok{background:var(--accent);color:var(--on-accent)}
+#demo .banner.bad{background:#ff5a5a;color:#fff}
+#demo .shield{display:flex;justify-content:center;align-items:center;gap:20px;height:210px;position:relative}
+#demo .shield svg.sh{width:150px;height:150px}
+#demo .candle{width:34px;height:96px;border-radius:6px;background:#ffaa3c;position:relative;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
+#demo .candle::before{content:"";position:absolute;left:50%;top:-22px;bottom:-22px;width:4px;margin-left:-2px;background:inherit;border-radius:2px;z-index:-1}
+#demo .candle.good{background:var(--accent)}
+#demo .side{display:flex;flex-direction:column;gap:18px}
+#demo .vid{justify-self:center;width:100%;max-width:300px;margin:0}
+#demo .vid video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000;border-radius:26px;border:1px solid var(--line);box-shadow:0 0 0 6px rgba(25,227,160,.07),0 30px 80px rgba(25,227,160,.12)}
+#demo .vid figcaption{font-size:.85rem;color:var(--dim);text-align:center;margin-top:12px}
+#demo .pdet summary{cursor:pointer;color:var(--accent);font-weight:800;font-size:.9rem;min-height:32px}
+#demo .ptxt{margin:8px 0 0;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:.78rem/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--muted);background:#05070a;border:1px solid var(--line);border-radius:12px;padding:12px}
+#demo .clock{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+#demo .clock i{display:block;height:46px;border-radius:8px;background:rgba(25,227,160,.28);border:2px solid transparent;transition:all .2s ease}
+#demo .clock i.bad{background:rgba(255,90,90,.35)}
+#demo .clock i.cur{border-color:var(--fg);transform:translateY(-4px)}
+#demo .tblw{overflow-x:auto;border:1.5px solid var(--line);border-radius:14px;background:var(--bg)}
+#demo .tbl{width:100%;border-collapse:collapse;font-size:.8rem;white-space:nowrap}
+#demo .tbl th{text-align:left;color:var(--dim);font-weight:800;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+#demo .tbl td{padding:9px 8px;border-bottom:1px solid var(--line);color:var(--fg);animation:dfade .4s ease both}
+#demo .tbl tr:last-child td{border-bottom:0}
+#demo .tbl td.w{color:var(--accent);font-weight:800}#demo .tbl td.l{color:#ff7b7b;font-weight:800}
+#demo .tabs2{display:flex;gap:8px;margin-bottom:12px}
+#demo .repw{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#demo .repw div{background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:14px}
+#demo .repw div[hidden],#demo [hidden]{display:none}
+#demo .repw small{display:block;color:var(--dim);font-weight:800;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+#demo .repw b{font-family:var(--display);font-size:1.2rem}
+#demo .tl{position:relative;height:34px;border-radius:999px;background:var(--accent-dim);overflow:hidden}
+#demo .tl .z{position:absolute;top:0;bottom:0;background:#ff5a5a}
+#demo .tl i{position:absolute;top:-2px;bottom:-2px;width:4px;background:#fff;left:0;border-radius:2px;box-shadow:0 0 12px #fff}
+#demo .tlab{display:flex;justify-content:space-between;font-size:.72rem;color:var(--dim);margin:6px 2px 10px}
+#demo input[type=range]{width:100%;accent-color:#19E3A0;min-height:32px}
+#demo .tbl{overflow-x:auto}
+#demo table{border-collapse:collapse;width:100%;font-size:.85rem}
+#demo th{text-align:left;color:var(--dim);font-weight:700;padding:4px 8px 6px 0;font-size:.75rem}
+#demo td{padding:5px 8px 5px 0;border-top:1px solid var(--line);color:var(--fg);white-space:nowrap}
+#demo td.w{color:var(--accent);font-weight:800}#demo td.l{color:#ff7b7b;font-weight:800}
+#demo .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2px}
+#demo .rgrid div{background:var(--bg2);border-radius:12px;padding:10px;text-align:center}
+#demo .rgrid b{display:block;font-family:var(--display);font-size:1.3rem}
+#demo .rgrid span{font-size:.72rem;color:var(--dim)}
+#demo .illus{font-size:.8rem;color:var(--dim);margin-top:14px}
+@media (max-width:860px){#demo .dgrid{grid-template-columns:minmax(0,1fr)}#demo .stage{padding:20px 16px}}
+@media (prefers-reduced-motion:reduce){#demo *{animation:none!important;transition:none!important}}
+</style>
+  <div class="wrap">
+    <span class="eyebrow">See it work</span>
+    <h2>Try the bot&rsquo;s logic yourself.</h2>
+    <p class="sub">Tap the buttons and watch how AlgoX behaves. These are simple illustrations of the features, not live trading results.</p>
+    <div class="dgrid">
+      <div>
+        <div class="dtabs" role="tablist" aria-label="Feature demos">
+          <button class="dtab" role="tab" aria-selected="true" data-t="0">Custom strategy</button>
+          <button class="dtab" role="tab" aria-selected="false" data-t="1">Pair lock</button>
+          <button class="dtab" role="tab" aria-selected="false" data-t="2">Target &amp; stop loss</button>
+          <button class="dtab" role="tab" aria-selected="false" data-t="3">Marginal safety</button>
+          <button class="dtab" role="tab" aria-selected="false" data-t="4">Worst time avoidance</button>
+          <button class="dtab" role="tab" aria-selected="false" data-t="5">Trade review</button>
+        </div>
+        <div class="stage">
+          <div class="dpane on" id="p0">
+            <h3>How to make your custom strategy</h3>
+            <p class="cap">Four simple steps. No coding needed.</p>
+            <div class="dcard" id="c1"><small>1. Write your strategy in simple words</small><div class="mono" id="typed"></div></div>
+            <div class="dcard" id="c0"><small>2. Copy this prompt and paste it into any AI, with your strategy</small>
+              <details class="pdet"><summary>Show the prompt</summary><pre class="ptxt" id="demoPrompt">Write ONE Python file for a trading bot. Follow these rules EXACTLY.
+
+FILE FORMAT
+- Output only the complete code in a single code block, nothing else.
+- The file must contain:
+    NAME = &quot;short strategy name&quot;
+    def signal(candles):
+        ...
+- Do NOT use any import at all (no numpy, pandas, talib, math). If you need
+  an indicator (RSI, moving average, EMA, Bollinger, etc.), write it by hand
+  with plain Python inside the file.
+- No input(), print(), files, internet, random or time functions.
+
+WHAT signal(candles) RECEIVES
+- candles is a list of dictionaries, OLDEST first, NEWEST last (candles[-1] is the latest).
+- Each candle has these keys: &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;time&quot;.
+- Use only open, high, low and close. Do not use &quot;time&quot;.
+- The latest candle, candles[-1], is a COMPLETED candle.
+
+WHAT signal(candles) MUST RETURN
+- &quot;call&quot;  -&gt; price will go UP
+- &quot;put&quot;   -&gt; price will go DOWN
+- None    -&gt; no trade
+- Return exactly these values, nothing else.
+
+SAFETY RULES
+- First line of signal() must check there are enough candles
+  (for example: if len(candles) &lt; N: return None) where N is the most
+  candles my rules need, plus a few extra.
+- Never divide by zero. Return None if a calculation is not possible.
+- Never crash: if something is missing, return None.
+
+MY STRATEGY (plain words):
+&lt;&lt;&lt; write your strategy here, in plain words &gt;&gt;&gt;
+
+AFTER THE CODE, in one short line, tell me the filename to save it as
+(lowercase letters and underscores only, ending in .py, not starting with _).</pre></details>
+              <div class="row2" style="margin-top:10px"><span id="cpMsg">Works with any AI assistant</span><button class="dbtn solid" id="cpP" type="button" style="margin-left:auto;min-height:40px">Copy prompt</button></div></div>
+            <div class="dcard" id="c2"><small>3. The AI makes your strategy file</small><div class="row2"><span id="fileTxt">Waiting for your strategy</span><span class="tag" id="fileTag">PENDING</span></div></div>
+            <div class="dcard" id="c3"><small>4. Paste the file into the custom strategy folder</small><div class="row2"><span>Custom Strategy folder</span><span class="tag" id="foldTag">EMPTY</span></div></div>
+            <div class="dctl"><button class="dbtn solid" id="play0" type="button">Play again</button><button class="dbtn" id="enh" type="button">Enhance with AI</button></div>
+          </div>
+          <div class="dpane" id="p1">
+            <h3>Pair lock</h3>
+            <p class="cap">A pair that just lost is locked, so the bot does not repeat the same mistake.</p>
+            <div class="chip" id="chA"><span>EUR USD</span><svg viewBox="0 0 24 24" fill="none" stroke="#9aa7b8" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#4a5565"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="tag ok" id="tA">READY</span></div>
+            <div class="chip" id="chB"><span>GBP JPY</span><svg viewBox="0 0 24 24" fill="none" stroke="#9aa7b8" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#4a5565"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="tag ok" id="tB">READY</span></div>
+            <div class="msg" id="lockMsg">Pick a result to simulate.</div>
+            <div class="dctl"><button class="dbtn red" id="lossA" type="button">Loss on EUR USD</button><button class="dbtn" id="winB" type="button">Win on GBP JPY</button><button class="dbtn ghost" id="rstL" type="button">Reset</button></div>
+          </div>
+          <div class="dpane" id="p2">
+            <h3>Target and stop loss</h3>
+            <p class="cap">The moment either one is hit, the bot stops by itself.</p>
+            <div class="chartbox">
+              <svg viewBox="0 0 600 300" role="img" aria-label="Price chart with a target line and a stop loss line">
+                <line x1="0" y1="40" x2="600" y2="40" stroke="#19E3A0" stroke-width="2" stroke-dasharray="8 8"/><text x="10" y="30" fill="#19E3A0" font-size="15" font-weight="800">TARGET</text>
+                <line x1="0" y1="260" x2="600" y2="260" stroke="#ff5a5a" stroke-width="2" stroke-dasharray="8 8"/><text x="10" y="250" fill="#ff7b7b" font-size="15" font-weight="800">STOP LOSS</text>
+                <polyline id="pl" points="" fill="none" stroke="#F2F5F8" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+                <circle id="dot" cx="20" cy="150" r="8" fill="#F2F5F8"/>
+              </svg>
+              <div class="banner" id="bn"></div>
+            </div>
+            <div class="msg" id="runMsg">Bot status: <b>READY</b></div>
+            <div class="dctl"><button class="dbtn" id="runUp" type="button">Target hit</button><button class="dbtn red" id="runDn" type="button">Stop loss hit</button></div>
+          </div>
+          <div class="dpane" id="p3">
+            <h3>Marginal safety</h3>
+            <p class="cap">The bot does not enter at the opening price. It waits for a better entry, then trades. Works for UP and DOWN signals.</p>
+            <div class="dctl" style="margin:0 0 12px" role="group" aria-label="Signal direction"><button class="dbtn solid" id="dU" type="button" aria-pressed="true">UP signal</button><button class="dbtn red" id="dD" type="button" aria-pressed="false">DOWN signal</button></div>
+            <div class="chartbox"><svg viewBox="0 0 600 280" role="img" aria-label="Candle starting from the open line, with a wick going to the bot entry">
+              <line x1="0" y1="140" x2="600" y2="140" stroke="#A9B5C4" stroke-width="2" stroke-dasharray="6 6"/><text x="10" y="130" fill="#A9B5C4" font-size="14" font-weight="800">OPEN</text>
+              <line id="entL" x1="0" y1="215" x2="600" y2="215" stroke="#ffbe3c" stroke-width="2" stroke-dasharray="6 6" opacity="0"/><text id="entT" x="10" y="233" fill="#ffbe3c" font-size="14" font-weight="800" opacity="0">BOT ENTERS HERE</text>
+              <line id="wick" x1="300" y1="140" x2="300" y2="140" stroke="#F2F5F8" stroke-width="4" stroke-linecap="round"/>
+              <rect id="body" x="276" y="140" width="48" height="0" rx="4" fill="#19E3A0"/>
+              <path id="arrow" d="" fill="none" stroke="#19E3A0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+              <text id="sigT" x="470" y="140" fill="#19E3A0" font-size="15" font-weight="800" opacity="0">UP SIGNAL</text>
+            </svg><div class="banner" id="bn3"></div></div>
+            <div class="msg" id="safeMsg">Pick UP or DOWN, then pick how the candle closes.</div>
+            <div class="dctl"><button class="dbtn" id="m1" type="button">Strong candle</button><button class="dbtn" id="m2" type="button">Doji</button><button class="dbtn" id="m3" type="button">Small candle</button></div>
+            <p class="cap" style="margin:12px 0 0">The candle starts at the open line, its wick goes to the bot&rsquo;s entry, and then it closes. Because the entry is better than the open, a strong candle, a doji or a small candle all end in profit in this example.</p>
+          </div>
+          <div class="dpane" id="p4">
+            <h3>Worst time avoidance</h3>
+            <p class="cap">The bot stays out of the worst times of the day, and trades the rest.</p>
+            <div class="chartbox" style="padding:16px">
+              <div class="tl" id="tl"><span class="z" style="left:8%;width:9%"></span><span class="z" style="left:38%;width:7%"></span><span class="z" style="left:70%;width:11%"></span><i id="ph"></i></div>
+              <div class="tlab"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+              <input type="range" id="clk" min="0" max="100" value="0" aria-label="Time of day">
+            </div>
+            <div class="msg" id="wtMsg">Move the slider or press Run a day.</div>
+            <div class="dctl"><button class="dbtn solid" id="wtRun" type="button">Run a day</button><button class="dbtn ghost" id="wtRst" type="button">Reset</button></div>
+            <p class="cap" style="margin:12px 0 0">Red zones are example worst times, such as news and low-volume periods.</p>
+          </div>
+          <div class="dpane" id="p5">
+            <h3>Review every trade</h3>
+            <p class="cap">The bot keeps a built-in CSV of every trade and a report for each session, so you can analyse your results.</p>
+            <div class="dcard on"><small>Trade log (sample)</small>
+              <div class="tbl"><table><thead><tr><th>Time</th><th>Pair</th><th>Side</th><th>Result</th></tr></thead><tbody id="tbd"></tbody></table></div></div>
+            <div class="dcard" id="rep"><small>Session report (sample)</small><div id="repTxt">Press &ldquo;Show session report&rdquo;.</div></div>
+            <div class="dctl"><button class="dbtn solid" id="csvB" type="button">Download sample CSV</button><button class="dbtn" id="repB" type="button">Show session report</button></div>
+          </div>
+        </div>
+        <p class="illus">Illustrations only. They show how each feature works and are not real trades or results.</p>
+      </div>
+      <figure class="vid">
+        <video controls playsinline preload="none" poster="assets/ad_poster.jpg" aria-label="AlgoX 50-second ad with Hindi voice-over">
+          <source src="assets/ad.mp4" type="video/mp4">
+        </video>
+        <figcaption>Watch the 50-second ad, Hindi voice-over</figcaption>
+      </figure>
+    </div>
+  </div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var tabs=[].slice.call(document.querySelectorAll('#demo .dtab')),panes=[0,1,2,3,4,5].map(function(i){return $('p'+i)});
+  var timers=[];function later(f,ms){var t=setTimeout(f,ms);timers.push(t);return t}
+  function clearT(){timers.forEach(clearTimeout);timers=[]}
+  function show(i){tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)});panes.forEach(function(p,k){p.classList.toggle('on',k===i)});clearT();[play0,rstL,rstR,rstS,rstW,rstT][i]()}
+  tabs.forEach(function(t,k){t.addEventListener('click',function(){show(k)});t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();var n=tabs[(k+1)%6];n.focus();show((k+1)%6)}if(e.key==='ArrowLeft'){e.preventDefault();var p=tabs[(k+5)%6];p.focus();show((k+5)%6)}})});
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* 0 strategy */
+  var BASE='When price touches support and turns up, take a call.';
+  var ENH='When price touches support, the last candle shows a clear turn, and the market is calm, take a call.';
+  function play0(text){
+    clearT();text=typeof text==='string'?text:BASE;
+    ['c0','c1','c2','c3'].forEach(function(c){$(c).classList.remove('on')});
+    $('typed').innerHTML='<span class="caret"></span>';$('fileTxt').textContent='Waiting for your strategy';$('fileTag').textContent='PENDING';$('fileTag').className='tag';$('foldTag').textContent='EMPTY';$('foldTag').className='tag';
+    $('c1').classList.add('on');var i=0;
+    (function step(){
+      if(reduce)i=text.length;
+      $('typed').innerHTML=text.slice(0,i).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'<span class="caret"></span>';
+      if(i<text.length){i++;later(step,28);return}
+      later(function(){$('c0').classList.add('on')},350);
+      later(function(){$('c2').classList.add('on');$('fileTxt').textContent='Strategy file ready';$('fileTag').textContent='READY';$('fileTag').className='tag ok'},1300);
+      later(function(){$('c3').classList.add('on');$('foldTag').textContent='ADDED';$('foldTag').className='tag ok'},2100);
+    })();
+  }
+  $('cpP').onclick=function(){var t=$('demoPrompt').textContent,m=$('cpMsg');function ok(){m.textContent='Prompt copied. Paste it into your AI.'}function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){m.textContent='Select the prompt and copy it.'}document.body.removeChild(a)}try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,fb);else fb()}catch(e){fb()}};
+  $('play0').onclick=function(){play0()};
+  $('enh').onclick=function(){play0(ENH)};
+  /* 1 lock */
+  var locked=false;
+  function setChip(c,t,st,lab,cls){$(c).className='chip'+(st?' '+st:'');$(t).textContent=lab;$(t).className='tag '+cls}
+  function rstL(){locked=false;setChip('chA','tA','','READY','ok');setChip('chB','tB','','READY','ok');$('lockMsg').textContent='Pick a result to simulate.'}
+  $('lossA').onclick=function(){clearT();setChip('chA','tA','loss','LOSS','bad');$('lockMsg').innerHTML='EUR USD lost a trade&hellip;';later(function(){locked=true;setChip('chA','tA','locked','LOCKED','');$('lockMsg').innerHTML='<b>EUR USD is locked.</b> The bot skips it, and keeps trading GBP JPY.'},700)};
+  $('winB').onclick=function(){clearT();setChip('chB','tB','','WIN','ok');if(locked){later(function(){locked=false;setChip('chA','tA','','READY','ok');setChip('chB','tB','','READY','ok');$('lockMsg').innerHTML='A win closes the cycle. <b>Locked pair is open again.</b>'},600)}else $('lockMsg').textContent='A win. Everything keeps running.'};
+  $('rstL').onclick=rstL;
+  /* 2 target / stop loss */
+  var raf=null,state=0;
+  var UP=[150,160,140,170,120,130,95,100,70,50,40],DN=[150,140,165,150,190,180,215,205,240,255,260];
+  function rstR(){if(raf)cancelAnimationFrame(raf);raf=null;$('pl').setAttribute('points','');$('dot').setAttribute('cx',20);$('dot').setAttribute('cy',150);$('bn').className='banner';$('runMsg').innerHTML='Bot status: <b>READY</b>';run.busy=false}
+  function run(arr,hit){
+    if(run.busy)return;rstR();run.busy=true;$('runMsg').innerHTML='Bot status: <b>RUNNING</b>';
+    var N=arr.length-1,dur=reduce?1:3200,t0=null,pts=[];
+    function f(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur),m=p*N,i=Math.floor(m),fr=m-i,y=i<N?arr[i]+(arr[i+1]-arr[i])*fr:arr[N],x=20+m*(560/N);
+      pts=[];for(var k=0;k<=i&&k<=N;k++)pts.push((20+k*560/N)+','+arr[k]);pts.push(x+','+y);
+      $('pl').setAttribute('points',pts.join(' '));$('dot').setAttribute('cx',x);$('dot').setAttribute('cy',y);
+      if(p<1)raf=requestAnimationFrame(f);else{var b=$('bn');b.textContent=hit?'TARGET HIT. BOT STOPS.':'STOP LOSS HIT. BOT STOPS.';b.className='banner show '+(hit?'ok':'bad');$('runMsg').innerHTML='Bot status: <b>STOPPED</b>';run.busy=false}}
+    raf=requestAnimationFrame(f)}
+  $('runUp').onclick=function(){run(UP,true)};$('runDn').onclick=function(){run(DN,false)};
+  /* 3 marginal safety */
+  var BODY=$('body'),WICK=$('wick'),dir=1,OP=140;
+  function setDir(d){dir=d;$('dU').classList.toggle('solid',d===1);$('dD').classList.toggle('solid',d===-1);$('dU').setAttribute('aria-pressed',d===1);$('dD').setAttribute('aria-pressed',d===-1);rstS()}
+  function rstS(){clearT();var ey=dir===1?215:65,col=dir===1?'#19E3A0':'#ff5a5a';BODY.setAttribute('height',0);BODY.setAttribute('y',OP);BODY.setAttribute('fill',col);WICK.setAttribute('y1',OP);WICK.setAttribute('y2',OP);
+    $('entL').setAttribute('y1',ey);$('entL').setAttribute('y2',ey);$('entT').setAttribute('y',dir===1?ey+18:ey-8);
+    $('arrow').setAttribute('d',dir===1?'M440 60 v60 m-12 -16 l12 -16 l12 16':'M440 60 v60 m-12 -16 l12 16 l12 -16'.replace('M440 60 v60','M440 60 v60'));
+    $('arrow').setAttribute('stroke',col);$('sigT').setAttribute('fill',col);$('sigT').textContent=dir===1?'UP SIGNAL':'DOWN SIGNAL';$('sigT').setAttribute('y',dir===1?100:100);
+    ['entL','entT','arrow','sigT'].forEach(function(i){$(i).setAttribute('opacity',0)});$('bn3').className='banner';$('safeMsg').textContent='Pick UP or DOWN, then pick how the candle closes.';rstS.busy=false}
+  function cndl(kind){
+    if(rstS.busy)return;rstS();rstS.busy=true;var ey=dir===1?215:65,col=dir===1?'#19E3A0':'#ff5a5a';
+    $('arrow').setAttribute('opacity',1);$('sigT').setAttribute('opacity',1);$('safeMsg').innerHTML=(dir===1?'UP':'DOWN')+' signal. The bot <b>waits</b>, it does not enter at the open.';
+    later(function(){WICK.setAttribute('y2',ey);$('safeMsg').innerHTML='Price moves '+(dir===1?'below':'above')+' the open. <b>Now the bot enters.</b>'},900);
+    later(function(){$('entL').setAttribute('opacity',1);$('entT').setAttribute('opacity',1)},1700);
+    later(function(){
+      var sz=kind==='big'?95:kind==='doji'?4:35,close=OP-dir*sz;
+      BODY.setAttribute('y',Math.min(OP,close));BODY.setAttribute('height',Math.max(4,sz));
+      WICK.setAttribute('y1',dir===1?close-10:ey);WICK.setAttribute('y2',dir===1?ey:close+10);
+      var b=$('bn3');b.textContent='CLOSES BEYOND ENTRY: WIN';b.className='banner show ok';
+      $('safeMsg').innerHTML='The candle starts at the open and closes '+(dir===1?'above':'below')+' the bot\u2019s entry. A '+(kind==='big'?'strong candle':kind==='doji'?'doji':'small candle')+' still wins here.';rstS.busy=false},2900)}
+  $('dU').onclick=function(){setDir(1)};$('dD').onclick=function(){setDir(-1)};
+  $('m1').onclick=function(){cndl('big')};$('m2').onclick=function(){cndl('doji')};$('m3').onclick=function(){cndl('small')};
+  /* 4 worst time */
+  var Z=[[8,17],[38,45],[70,81]],wtT=null;
+  function wtSet(v){v=+v;$('ph').style.left='calc('+v+'% - 2px)';$('clk').value=v;var bad=Z.some(function(z){return v>=z[0]&&v<=z[1]}),h=Math.floor(v*24/100),m=Math.floor((v*24/100-h)*60),tm=('0'+h).slice(-2)+':'+('0'+m).slice(-2);
+    $('wtMsg').innerHTML=tm+' &middot; '+(bad?'<span style="color:#ff7b7b"><b>PAUSED.</b> Worst time, the bot stays out.</span>':'<b>TRADING.</b> Normal time, the bot follows your strategy.')}
+  function wtStop(){if(wtT){clearInterval(wtT);wtT=null}}
+  function rstW(){wtStop();wtSet(0);$('wtMsg').innerHTML='Move the slider or press Run a day.'}
+  $('clk').oninput=function(){wtStop();wtSet(this.value)};
+  $('wtRst').onclick=rstW;
+  $('wtRun').onclick=function(){wtStop();var v=0;wtSet(0);wtT=setInterval(function(){v+=reduce?10:.6;if(v>=100){v=100;wtStop()}wtSet(v)},40)};
+  /* 5 trade review */
+  var TR=[['09:32','EUR USD','CALL','WIN'],['09:47','GBP JPY','PUT','LOSS'],['10:05','AUD CAD','CALL','WIN'],['10:21','EUR USD','PUT','WIN'],['10:44','USD CHF','CALL','LOSS'],['11:03','GBP JPY','CALL','WIN']];
+  function rstT(){$('tbd').innerHTML=TR.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td class="'+(r[3]==='WIN'?'w':'l')+'">'+r[3]+'</td></tr>'}).join('');$('rep').classList.remove('on');$('repTxt').innerHTML='Press &ldquo;Show session report&rdquo;.'}
+  $('repB').onclick=function(){var w=TR.filter(function(r){return r[3]==='WIN'}).length;$('rep').classList.add('on');$('repTxt').innerHTML='<div class="rgrid"><div><b>'+TR.length+'</b><span>TRADES</span></div><div><b>'+w+'</b><span>WINS</span></div><div><b>'+(TR.length-w)+'</b><span>LOSSES</span></div></div><p class="cap" style="margin:10px 0 0">Sample numbers. Your real report is saved after every session.</p>'};
+  $('csvB').onclick=function(){var t='time,pair,side,result\n'+TR.map(function(r){return r.join(',')}).join('\n')+'\n';try{var u=URL.createObjectURL(new Blob([t],{type:'text/csv'})),a=document.createElement('a');a.href=u;a.download='algox_sample_trades.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u)},500)}catch(e){}};
+  rstT();
+  /* autoplay first tab when visible */
+  var started=false;
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting&&!started){started=true;play0();o.disconnect()}},{threshold:.3}).observe($('p0'))}else{play0()}
+})();
+</script>
 </section>
 
 <section class="sec" id="features">
@@ -342,6 +677,68 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <span class="eyebrow">FAQ</span>
     <h2>Common questions</h2>
     <div class="faq">
+      <details id="install"><summary>How do I install the bot?</summary>
+        <div class="ans">
+          <ol>
+            <li><b>Get the zip file.</b> You receive the bot as a zip file.</li>
+            <li><b>Extract it.</b> Right-click the zip and choose Extract All.</li>
+            <li><b>Run it.</b> Open the extracted folder and double-click the <code>.exe</code> file. The bot starts.</li>
+          </ol>
+        </div>
+      </details>
+      <details id="add-strategy"><summary>How do I add my own custom strategy?</summary>
+        <div class="ans">
+          <p>You don&rsquo;t need to code. Any AI assistant can write the strategy file for you.</p>
+          <ol>
+            <li><b>Copy the prompt below</b> and paste it into any AI assistant (ChatGPT, Claude, Gemini or any other).</li>
+            <li><b>Replace the last placeholder line</b> (the one inside <code>&lt;&lt;&lt; &gt;&gt;&gt;</code>) with your strategy, written in plain words.</li>
+            <li><b>Send it.</b> The AI replies with one Python file and the filename to save it as. If the reply stops halfway, send: <code>Continue from where you left off.</code></li>
+            <li><b>Save the code</b> as a <code>.py</code> file with exactly the filename the AI gave you (lowercase letters and underscores, not starting with an underscore).</li>
+            <li><b>Add the file to AlgoX.</b> Paste the file into the custom strategy folder.</li>
+            <li><b>Test it on the demo account first</b> before you use it live.</li>
+          </ol>
+          <div class="promptbox">
+            <div class="pbhead"><span>Prompt for the AI</span><button type="button" class="btn btn-ghost" id="copyPrompt">Copy prompt</button></div>
+            <pre id="promptText">Write ONE Python file for a trading bot. Follow these rules EXACTLY.
+
+FILE FORMAT
+- Output only the complete code in a single code block, nothing else.
+- The file must contain:
+    NAME = &quot;short strategy name&quot;
+    def signal(candles):
+        ...
+- Do NOT use any import at all (no numpy, pandas, talib, math). If you need
+  an indicator (RSI, moving average, EMA, Bollinger, etc.), write it by hand
+  with plain Python inside the file.
+- No input(), print(), files, internet, random or time functions.
+
+WHAT signal(candles) RECEIVES
+- candles is a list of dictionaries, OLDEST first, NEWEST last (candles[-1] is the latest).
+- Each candle has these keys: &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;time&quot;.
+- Use only open, high, low and close. Do not use &quot;time&quot;.
+- The latest candle, candles[-1], is a COMPLETED candle.
+
+WHAT signal(candles) MUST RETURN
+- &quot;call&quot;  -&gt; price will go UP
+- &quot;put&quot;   -&gt; price will go DOWN
+- None    -&gt; no trade
+- Return exactly these values, nothing else.
+
+SAFETY RULES
+- First line of signal() must check there are enough candles
+  (for example: if len(candles) &lt; N: return None) where N is the most
+  candles my rules need, plus a few extra.
+- Never divide by zero. Return None if a calculation is not possible.
+- Never crash: if something is missing, return None.
+
+MY STRATEGY (plain words):
+&lt;&lt;&lt; write your strategy here, in plain words &gt;&gt;&gt;
+
+AFTER THE CODE, in one short line, tell me the filename to save it as
+(lowercase letters and underscores only, ending in .py, not starting with _).</pre>
+          </div>
+        </div>
+      </details>
       <details><summary>Is it really free?</summary><p>Yes, the bot licence has no fee. To get the lifetime licence you open a Quotex account through our referral link and deposit a minimum of $50. The 2-day demo before that is free too.</p></details>
       <details><summary>What do I get in the demo?</summary><p>For 2 days the bot runs on a demo account, so you can see exactly how it works without risking money. Live trading is locked during the demo.</p></details>
       <details><summary>Is profit guaranteed?</summary><p>No. No bot or strategy can guarantee profit. Trading involves risk and you can lose your capital. Only trade with money you can afford to lose.</p></details>
@@ -349,6 +746,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <details><summary>Can I review my results later?</summary><p>Yes. The bot records every trade and every session, so you can go back and analyze your performance easily.</p></details>
       <details><summary>How many computers can one licence run on?</summary><p>One licence key works on one PC.</p></details>
       <details><summary>Where do I ask for a demo or licence?</summary><p>Message <b>@ALGOX_BOT_ADMIN</b> on Telegram, or tap any button on this page and the message is pre-filled for you.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ask" style="padding-top:0">
+  <div class="wrap">
+    <div class="askbox">
+      <span class="eyebrow">Still have a question?</span>
+      <h2>Raise a question</h2>
+      <p class="sub">Type your question below. The button opens Telegram with your question already written, so you only need to press send.</p>
+      <label for="q" class="vh">Your question</label>
+      <textarea id="q" rows="4" maxlength="600" placeholder="Type your question here"></textarea>
+      <div class="cta-row"><a class="btn btn-primary" id="askBtn" href="https://t.me/ALGOX_BOT_ADMIN?text=Hi%2C%20I%20have%20a%20question%20about%20the%20AlgoX%20bot." target="_blank" rel="noopener">Raise a question on Telegram</a></div>
     </div>
   </div>
 </section>
@@ -398,6 +808,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   var mq=window.matchMedia('(max-width:860px)'), svg=document.getElementById('wheel');
   function vb(){svg.setAttribute('viewBox',mq.matches?'150 70 580 580':'0 0 880 720');}
   vb(); if(mq.addEventListener)mq.addEventListener('change',vb);
+  var cp=document.getElementById('copyPrompt'), pt=document.getElementById('promptText');
+  if(cp&&pt){cp.addEventListener('click',function(){
+    var t=pt.textContent;
+    function ok(){cp.textContent='Copied';setTimeout(function(){cp.textContent='Copy prompt';},2000);}
+    function fb(){var r=document.createRange();r.selectNodeContents(pt);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);cp.textContent='Press Ctrl+C';}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb);}else{fb();}}catch(e){fb();}
+  });}
+  var q=document.getElementById('q'), ab=document.getElementById('askBtn');
+  if(q&&ab){q.addEventListener('input',function(){
+    var txt='Hi, I have a question about the AlgoX bot: '+q.value.trim();
+    if(!q.value.trim())txt='Hi, I have a question about the AlgoX bot.';
+    ab.href='https://t.me/ALGOX_BOT_ADMIN?text='+encodeURIComponent(txt);
+  });}
   var rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(!rm){timer=setInterval(function(){if(!touched)setActive((cur+1)%segs.length);},4500);}
 })();
